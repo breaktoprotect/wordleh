@@ -38,5 +38,16 @@ class TestWordlehEngine(unittest.TestCase):
         expected_results = ['hello', 'world']
         self.assertCountEqual(wordleh_engine.filtered_words_containing_letters(TEST_WORDS, ['l','o']), expected_results)
 
+    def test_filtered_words_positional_letters(self):
+        # Matching last 3 letters
+        test_words_alt = ['hello', 'world', 'cello', 'arrow', 'melon', 'arran']
+        self.assertCountEqual(wordleh_engine.filtered_words_positional_letters(test_words_alt, '--llo'), ['hello', 'cello'])
+
+        # Matching first 3 letters
+        self.assertCountEqual(wordleh_engine.filtered_words_positional_letters(test_words_alt, 'arr--'), ['arrow', 'arran'])
+
+        # Matching middle 2 letters
+        self.assertCountEqual(wordleh_engine.filtered_words_positional_letters(test_words_alt, '-el--'), ['hello', 'cello', 'melon'])
+
 if __name__ == "__main__":
     unittest.main()

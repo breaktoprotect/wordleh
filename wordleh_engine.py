@@ -1,4 +1,6 @@
+from distutils.log import debug
 from tkinter import W
+from turtle import position
 from unittest import skip
 from english_words import english_words_lower_alpha_set as WORDS
 import collections
@@ -59,16 +61,20 @@ def filtered_words_positional_letters(wordlist, positional_string):
     new_wordlist = []
     
     #! Super un-optimized at the moment
-    for index, pos_letter in enumerate(positional_string):
-        # Skip '-' letters or unknowns
-        if pos_letter == '-':
-            continue
-        for word in wordlist:
+    for word in wordlist:
+        pos_matches = True
+        for index, pos_letter in enumerate(positional_string):
+            # Skip '-' letters or unknowns
+            if pos_letter == '-':
+                continue
+                        
+            # If at that index, the letters don't match, ignore the word
             if positional_string[index] != word[index]:
+                pos_matches = False
                 break
-        
-        new_wordlist.append(word)
-
+        if pos_matches:
+            new_wordlist.append(word)
+            
     return new_wordlist
           
 
@@ -86,10 +92,4 @@ def is_no_letter_repeat(word):
 
 if __name__ == '__main__':
     # Test
-    wordlist = WORDS
-
-    new_wordlist = filtered_words_excluding_letters(wordlist, excluded_letters=['e','t', 'u', 'o','a','d','h','n'])
-    new_new_wordlist = filtered_words_containing_letters(new_wordlist, included_letters=['c','p','r','i'])
-    
-    print("new_new_wordlist:", new_new_wordlist)
-    print("length of new_new_wordlist:", len(new_new_wordlist))
+    pass
