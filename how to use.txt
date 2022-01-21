@@ -20,8 +20,9 @@ Bad luck? You could still reduce by exclusion of used letters. Put those letters
 
 Mid-game: Some clues Phase (Rinse and repeat)
 ---------------------------------------------
-First, reduce the pool of words by known letters (known or unknown position is fine).
+First, reduce the pool of words by known letters (known or unknown position is fine) and most recent excluded letters.
 - filtered_words_containing_letters(wordlist, included_letters)
+- filtered_words_excluding_letters(wordlist, excluded_letters)
 
 Secondly, reduce the pool of words by known letters at known position
 - filtered_words_positional_letters(wordlist, positional_string) where positional_string can be '--llo'
