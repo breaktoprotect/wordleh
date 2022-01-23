@@ -4,6 +4,40 @@ from turtle import position
 from unittest import skip
 from english_words import english_words_lower_alpha_set as WORDS
 import collections
+import random
+
+#* Fetch a random word for initial stage (FIRST TURN)
+def get_start_word(length):
+    length_words = get_n_letter_words(WORDS, 5)
+    no_letter_repeat_words = get_filtered_words_no_letter_repeat(length_words)
+
+    #debug
+    print("[DEBUG] Wordlist length:", len(no_letter_repeat_words))
+
+    return random.choice(no_letter_repeat_words)
+
+#* A do-all routine for stateless single request (AFTER FIRST TURN)
+def get_suitable_word(length, excluded_letters, contained_letters, positional_string):
+    # 1. Fetch the correct length words
+    wordlist_1 = get_n_letter_words(WORDS, 5) # WORDS is the lower alphabet set of all English words
+
+    # 2. Filter out excluded letters
+    wordlist_2 = filtered_words_excluding_letters(wordlist_1, excluded_letters)
+
+    # 3. Filter out words without included letters
+    wordlist_3 = filtered_words_containing_letters(wordlist_2, contained_letters)
+
+    # 4. Get words fulfilling the known letters at known positions
+    wordlist_4 = filtered_words_positional_letters(wordlist_3, positional_string)
+
+    # 5. Get a random word from the resultant list
+    chosen_word = random.choice(wordlist_4)
+
+    #debug
+    print("[DEBUG] get_suitable_word length:", len(wordlist_4))
+    print("        A few of the words in the bag:", wordlist_4[:15])
+
+    return chosen_word
 
 #* Retrieve words with a specific length
 def get_n_letter_words(wordlist, length):
@@ -74,7 +108,7 @@ def filtered_words_positional_letters(wordlist, positional_string):
                 break
         if pos_matches:
             new_wordlist.append(word)
-            
+
     return new_wordlist
           
 
