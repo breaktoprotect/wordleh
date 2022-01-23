@@ -103,72 +103,78 @@ class WordlehFormSimple extends Component {
 
     render() {
         return (
-            <div className="container text-light">
-                <h3>Wordleh!? v0.1</h3>
-                <form onSubmit={this.handleChange} action="">
-                    <div className="form-group">
-                        <label htmlFor="">PLACEHOLDER WORD OF THE DAY</label>
-                        <input
-                            id=""
-                            type="text"
-                            className="form-control"
-                            name="positional"
-                            value={this.state.positional}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <br />
-                    <div className="container">
-                        <center>
-                            <h4>Suggested:</h4>
-                            <h1 className="h1">{this.state.suggested}</h1>
-                        </center>
-                    </div>
-                    <br />
-                    <div className="form-group">
-                        <label htmlFor="">Word Length:</label>
-                        <input
-                            autoFocus
-                            name="wordLength"
-                            value={this.state.wordLength}
-                            onChange={this.handleWordLengthChange}
-                            id="wordLength"
-                            type="text"
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="">Excluded Letters</label>
-                        <input
-                            id=""
-                            type="text"
-                            name="excluded"
-                            className="form-control"
-                            value={this.state.excluded}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="">Contained Letters</label>
-                        <input
-                            id=""
-                            type="text"
-                            name="contained"
-                            className="form-control"
-                            value={this.state.contained}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <button
-                        className="btn btn-light mt-2"
-                        onChange={this.handleSubmit}
-                    >
-                        Smash it again!
-                    </button>
-                    <br />
-                    <br />
-                    <br />
-                </form>
+            <div class="row">
+                <div className="col"></div>
+                <div className="col text-light pt-4">
+                    <h3>Wordleh!? v0.1</h3>
+                    <form onSubmit={this.handleChange} action="">
+                        <div className="form-group">
+                            <label htmlFor="">
+                                PLACEHOLDER WORD OF THE DAY
+                            </label>
+                            <input
+                                id=""
+                                type="text"
+                                className="form-control"
+                                name="positional"
+                                value={this.state.positional}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <br />
+                        <div className="container">
+                            <center>
+                                <h4>Suggested:</h4>
+                                <h1 className="h1">{this.state.suggested}</h1>
+                            </center>
+                        </div>
+                        <br />
+                        <div className="form-group">
+                            <label htmlFor="">Word Length:</label>
+                            <input
+                                autoFocus
+                                name="wordLength"
+                                value={this.state.wordLength}
+                                onChange={this.handleWordLengthChange}
+                                id="wordLength"
+                                type="text"
+                                className="form-control"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="">Excluded Letters</label>
+                            <input
+                                id=""
+                                type="text"
+                                name="excluded"
+                                className="form-control"
+                                value={this.state.excluded}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="">Contained Letters</label>
+                            <input
+                                id=""
+                                type="text"
+                                name="contained"
+                                className="form-control"
+                                value={this.state.contained}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <button
+                            className="btn btn-light mt-2"
+                            onChange={this.handleSubmit}
+                        >
+                            Smash it again!
+                        </button>
+                        <br />
+                        <br />
+                        <br />
+                    </form>
+                </div>
+                <div className="col"></div>
             </div>
         );
     }
