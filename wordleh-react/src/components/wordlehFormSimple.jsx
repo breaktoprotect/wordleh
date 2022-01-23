@@ -76,18 +76,19 @@ class WordlehFormSimple extends Component {
         if ([e.currentTarget.value] < 1 || [e.currentTarget.value] > 13) {
             return;
         }
-        const data = await axios.get(
+        const response = await axios.get(
             "http://127.0.0.1:5000/fetch_start_word?length=" +
                 [e.currentTarget.value]
         );
+        const { suggested, poolSize } = response.data;
 
-        console.log("data:", data);
+        this.setState({ suggested, poolSize });
 
         this.setState({
-            suggested: data.suggested,
+            suggested: suggested,
             excluded: "",
             contained: "",
-            poolSize: "?",
+            poolSize: poolSize,
         });
     };
 
