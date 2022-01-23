@@ -1,3 +1,4 @@
+from urllib import response
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_cors import CORS, cross_origin
 from werkzeug import secure_filename
@@ -17,7 +18,15 @@ def fetch_start_word():
         return "[!] Error: Must specify 'length'"
 
     length = int(request.args.get('length'))
-    return jsonify(WLE.get_start_word(length))
+
+    suggested_word, pool_size =  WLE.get_start_word(length)
+
+    response_json = {
+        'suggested': suggested_word,
+        'poolSize': pool_size
+    }
+
+    return jsonify(response_json)
 
 
 @app.route('/fetch_suitable_word', methods=['GET'])
@@ -31,7 +40,14 @@ def fetch_suitable_word():
     contained_letters = request.args.get('contained').split(',')
     positional_string = request.args.get('positional_string')
 
-    return WLE.get_suitable_word(length, excluded_letters, contained_letters, positional_string)
+    suggested, pool_size =WLE.get_suitable_word(length, excluded_letters, contained_letters, positional_string)
+
+    response_json = {
+        'suggested': suggested,
+        'poolSize': pool_size
+    }
+
+    return jsonify(response_json)
 
 
 '''

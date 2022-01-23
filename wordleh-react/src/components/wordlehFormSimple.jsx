@@ -4,6 +4,7 @@ import axios from "axios";
 class WordlehFormSimple extends Component {
     state = {
         wordLength: 5, //default 5, that's how Wordle rolls now
+        poolSize: 0,
         excluded: "",
         contained: "",
         positional: "",
@@ -16,9 +17,10 @@ class WordlehFormSimple extends Component {
             "http://127.0.0.1:5000/fetch_start_word?length=" +
                 this.state.wordLength
         );
-        const { data: suggested } = response;
 
-        this.setState({ suggested });
+        const { suggested, poolSize } = response.data;
+
+        this.setState({ suggested, poolSize });
 
         //* Sets the positional text based on word length
         this.setState({ positional: "-".repeat(this.state.wordLength) });
@@ -40,7 +42,7 @@ class WordlehFormSimple extends Component {
                 if (this.state.wordLength > 0 && this.state.excluded != "") {
                     const { wordLength, excluded, contained, positional } =
                         this.state;
-                    const { data: suggested } = await axios.get(
+                    const response = await axios.get(
                         "http://127.0.0.1:5000/fetch_suitable_word?length=" +
                             wordLength +
                             "&excluded=" +
@@ -50,7 +52,10 @@ class WordlehFormSimple extends Component {
                             "&positional_string=" +
                             positional
                     );
-                    this.setState({ suggested });
+
+                    const { suggested, poolSize } = response.data;
+
+                    this.setState({ suggested, poolSize });
                 }
             }
         );
@@ -71,14 +76,18 @@ class WordlehFormSimple extends Component {
         if ([e.currentTarget.value] < 1 || [e.currentTarget.value] > 13) {
             return;
         }
-        const { data: suggested } = await axios.get(
+        const data = await axios.get(
             "http://127.0.0.1:5000/fetch_start_word?length=" +
                 [e.currentTarget.value]
         );
+
+        console.log("data:", data);
+
         this.setState({
-            suggested: suggested,
+            suggested: data.suggested,
             excluded: "",
             contained: "",
+            poolSize: "?",
         });
     };
 
@@ -103,15 +112,13 @@ class WordlehFormSimple extends Component {
 
     render() {
         return (
-            <div class="row">
+            <div className="row">
                 <div className="col"></div>
                 <div className="col text-light pt-4">
                     <h3>Wordleh!? v0.1</h3>
                     <form onSubmit={this.handleChange} action="">
                         <div className="form-group">
-                            <label htmlFor="">
-                                PLACEHOLDER WORD OF THE DAY
-                            </label>
+                            <label htmlFor="">Wordle of the Day</label>
                             <input
                                 id=""
                                 type="text"
@@ -126,6 +133,17 @@ class WordlehFormSimple extends Component {
                             <center>
                                 <h4>Suggested:</h4>
                                 <h1 className="h1">{this.state.suggested}</h1>
+                            </center>
+                        </div>
+                        <div className="container-sm text-success">
+                            <center>
+                                <p>
+                                    (Current Pool size:{" "}
+                                    {this.state.poolSize > 0
+                                        ? this.state.poolSize
+                                        : " ? "}
+                                    )
+                                </p>
                             </center>
                         </div>
                         <br />

@@ -19,7 +19,7 @@ def get_start_word(length):
     #debug
     print("[DEBUG] Wordlist length:", len(no_letter_repeat_words))
 
-    return random.choice(no_letter_repeat_words)
+    return random.choice(no_letter_repeat_words), len(no_letter_repeat_words)
 
 #* A do-all routine for stateless single request (AFTER FIRST TURN)
 def get_suitable_word(length, excluded_letters, contained_letters, positional_string):
@@ -42,7 +42,7 @@ def get_suitable_word(length, excluded_letters, contained_letters, positional_st
     print("[DEBUG] get_suitable_word length:", len(wordlist_4))
     print("        A few of the words in the bag:", wordlist_4[:15])
 
-    return chosen_word
+    return chosen_word, len(wordlist_4)
 
 #* Retrieve words with a specific length
 def get_n_letter_words(wordlist, length):
