@@ -6,9 +6,14 @@ from english_words import english_words_lower_alpha_set as WORDS
 import collections
 import random
 
+#TODO
+'''
+- A function to ensure no word is picked from wrong position (e.g. BATCH with 'C' as correct letter, but incorrect position. 'QUICK' should never be picked.)
+'''
+
 #* Fetch a random word for initial stage (FIRST TURN)
 def get_start_word(length):
-    length_words = get_n_letter_words(WORDS, 5)
+    length_words = get_n_letter_words(WORDS, length)
     no_letter_repeat_words = get_filtered_words_no_letter_repeat(length_words)
 
     #debug

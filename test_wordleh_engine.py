@@ -38,6 +38,10 @@ class TestWordlehEngine(unittest.TestCase):
         expected_results = ['hello', 'world']
         self.assertCountEqual(wordleh_engine.filtered_words_containing_letters(TEST_WORDS, ['l','o']), expected_results)
 
+        # Contain three letters 
+        expected_results =['world']
+        self.assertCountEqual(wordleh_engine.filtered_words_containing_letters(TEST_WORDS, ['l','o','d']), expected_results)
+
     def test_filtered_words_positional_letters(self):
         # Matching last 3 letters
         test_words_alt = ['hello', 'world', 'cello', 'arrow', 'melon', 'arran']

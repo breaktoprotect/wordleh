@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from flask_cors import CORS, cross_origin
 from werkzeug import secure_filename
 import os
@@ -9,10 +9,30 @@ app=Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route('/queryWords', methods=['GET'])
+@app.route('/fetch_start_word', methods=['GET'])
 @cross_origin()
-def queryWords():
-    return "[+] IT WORKS!"
+def fetch_start_word():
+    # Input validation - length parameter must be specified
+    if 'length' not in request.args:
+        return "[!] Error: Must specify 'length'"
+
+    length = int(request.args.get('length'))
+    return jsonify(WLE.get_start_word(length))
+
+
+@app.route('/fetch_suitable_word', methods=['GET'])
+@cross_origin()
+def fetch_suitable_word():
+    # Input validation - 
+    #TODO
+
+    length = request.args.get('length')
+    excluded_letters = request.args.get('excluded').split(',')
+    contained_letters = request.args.get('contained').split(',')
+    positional_string = request.args.get('positional_string')
+
+    return WLE.get_suitable_word(length, excluded_letters, contained_letters, positional_string)
+
 
 '''
 @app.route('/submitUpload', methods = ['POST'])
