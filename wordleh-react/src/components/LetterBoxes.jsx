@@ -24,10 +24,19 @@ class LetterBoxes extends Component {
 
         // Validate - cannot be more than 1 length
         if (value.length > 1) {
-            value = value[1];
+            if (value[1] === "-") {
+                value = value[0];
+            } else {
+                value = value[1];
+            }
 
             //debug
             console.warn("new value:", value);
+        }
+
+        // Validate - cannot be less than 1 length
+        if (value.length < 1) {
+            value = "-";
         }
 
         const letterBoxes = [...this.state.letterBoxes]; //Cloning from previous array
