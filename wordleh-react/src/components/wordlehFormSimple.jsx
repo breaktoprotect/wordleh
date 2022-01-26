@@ -1,7 +1,7 @@
 import React, { cloneElement, Component } from "react";
 import axios from "axios";
 import LetterBoxes from "./LetterBoxes";
-import Banner from "../banner2.png";
+import Banner from "../banner.png";
 
 class WordlehFormSimple extends Component {
     state = {
