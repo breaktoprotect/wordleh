@@ -4,7 +4,7 @@ import WordlehFormSimple from "./components/wordlehFormSimple";
 
 function App() {
     return (
-        <div className="App bg-dark bg-gradient">
+        <div className="App bg-dark">
             <WordlehFormSimple />
         </div>
     );
