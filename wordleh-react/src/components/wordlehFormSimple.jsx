@@ -3,6 +3,12 @@ import axios from "axios";
 import LetterBoxes from "./LetterBoxes";
 import Banner from "../banner.png";
 
+//* Deployment notes
+/*
+When encounter error on Ubuntu 18 with regards to npm install, visit:
+https://stackoverflow.com/questions/51843595/how-to-fix-this-error-npm
+*/
+
 class WordlehFormSimple extends Component {
     state = {
         wordLength: 5, //default 5, that's how Wordle rolls now
@@ -16,7 +22,7 @@ class WordlehFormSimple extends Component {
     fetchStartWord = async () => {
         //* Randomly fetch a non-repeated letter word at the start
         const response = await axios.get(
-            "http://3.14.85.158:5000/fetch_start_word?length=" +
+            "http://www.wordleh.xyz:5000/fetch_start_word?length=" +
                 this.state.wordLength
         );
 
@@ -29,7 +35,7 @@ class WordlehFormSimple extends Component {
         this.fetchStartWord();
         /* //* Randomly fetch a non-repeated letter word at the start
         const response = await axios.get(
-            "http://3.14.85.158:5000/fetch_start_word?length=" +
+            "http://www.wordleh.xyz:5000/fetch_start_word?length=" +
                 this.state.wordLength
         );
 
@@ -58,7 +64,7 @@ class WordlehFormSimple extends Component {
                     const { wordLength, excluded, contained, positional } =
                         this.state;
                     const response = await axios.get(
-                        "http://3.14.85.158:5000/fetch_suitable_word?length=" +
+                        "http://www.wordleh.xyz:5000/fetch_suitable_word?length=" +
                             wordLength +
                             "&excluded=" +
                             excluded +
@@ -92,7 +98,7 @@ class WordlehFormSimple extends Component {
             return;
         }
         const response = await axios.get(
-            "http://3.14.85.158:5000/fetch_start_word?length=" +
+            "http://www.wordleh.xyz:5000/fetch_start_word?length=" +
                 [e.currentTarget.value]
         );
         const { suggested, poolSize } = response.data;
@@ -145,7 +151,7 @@ class WordlehFormSimple extends Component {
 
         // Main submission routine
         const { response } = await axios.get(
-            "http://3.14.85.158:5000/fetch_suitable_word?length=" +
+            "http://www.wordleh.xyz:5000/fetch_suitable_word?length=" +
                 wordLength +
                 "&excluded=" +
                 excluded +
@@ -224,6 +230,7 @@ class WordlehFormSimple extends Component {
                                 type="text"
                                 name="excluded"
                                 className="form-control"
+                                placeholder="e.g. a,b,c,d,e"
                                 value={this.state.excluded}
                                 onChange={this.handleChange}
                             />
@@ -237,6 +244,7 @@ class WordlehFormSimple extends Component {
                                 type="text"
                                 name="contained"
                                 className="form-control"
+                                placeholder="e.g. a,b,c,d,e"
                                 value={this.state.contained}
                                 onChange={this.handleChange}
                             />
