@@ -1,6 +1,3 @@
-from distutils.log import debug
-from tkinter import W
-from unittest import skip
 from english_words import english_words_lower_alpha_set as WORDS
 import collections
 import random
