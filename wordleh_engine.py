@@ -1,6 +1,5 @@
 from distutils.log import debug
 from tkinter import W
-from turtle import position
 from unittest import skip
 from english_words import english_words_lower_alpha_set as WORDS
 import collections

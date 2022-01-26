@@ -1,7 +1,6 @@
 from urllib import response
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_cors import CORS, cross_origin
-from werkzeug import secure_filename
 import os
 
 import wordleh_engine as WLE
