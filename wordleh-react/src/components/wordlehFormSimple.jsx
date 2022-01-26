@@ -13,7 +13,7 @@ class WordlehFormSimple extends Component {
         suggested: "",
     };
 
-    async componentDidMount() {
+    fetchStartWord = async () => {
         //* Randomly fetch a non-repeated letter word at the start
         const response = await axios.get(
             "http://127.0.0.1:5000/fetch_start_word?length=" +
@@ -23,6 +23,19 @@ class WordlehFormSimple extends Component {
         const { suggested, poolSize } = response.data;
 
         this.setState({ suggested, poolSize });
+    };
+
+    async componentDidMount() {
+        this.fetchStartWord();
+        /* //* Randomly fetch a non-repeated letter word at the start
+        const response = await axios.get(
+            "http://127.0.0.1:5000/fetch_start_word?length=" +
+                this.state.wordLength
+        );
+
+        const { suggested, poolSize } = response.data;
+
+        this.setState({ suggested, poolSize }); */
 
         //* Sets the positional text based on word length
         this.setState({ positional: "-".repeat(this.state.wordLength) });
@@ -115,10 +128,23 @@ class WordlehFormSimple extends Component {
         console.warn("new positional: ", pos_str);
     };
 
-    handleSubmit = (e) => {
-        // Main submission routine
+    // Manual click to fetch the word
+    handleAgain = async (e) => {
         const { wordLength, excluded, contained, positional } = this.state;
-        const { data: suggested } = axios.get(
+
+        // Check if to fetch start word or standard routine (random word based on constraints)
+        const expected_positional = "-".repeat(wordLength);
+        if (
+            excluded === "" &&
+            contained === "" &&
+            positional === expected_positional
+        ) {
+            this.fetchStartWord();
+            return;
+        }
+
+        // Main submission routine
+        const { response } = await axios.get(
             "http://127.0.0.1:5000/fetch_suitable_word?length=" +
                 wordLength +
                 "&excluded=" +
@@ -128,7 +154,11 @@ class WordlehFormSimple extends Component {
                 "&positional_string=" +
                 positional
         );
-        this.setState({ suggested });
+        const { suggested, poolSize } = response.data;
+        //debug
+        console.log("suggested, poolsize:", suggested, poolSize);
+
+        this.setState({ suggested, poolSize });
     };
 
     render() {
@@ -150,7 +180,12 @@ class WordlehFormSimple extends Component {
                     <div className="container">
                         <center>
                             <h4>Suggested:</h4>
-                            <h1 className="h1">{this.state.suggested}</h1>
+                            <h1
+                                className="h1 pe-auto"
+                                onClick={this.handleAgain}
+                            >
+                                {this.state.suggested}
+                            </h1>
                         </center>
                     </div>
                     <div className="container-sm text-success">
@@ -164,47 +199,56 @@ class WordlehFormSimple extends Component {
                             </p>
                         </center>
                     </div>
-                    <br />
-                    <div className="form-group">
-                        <label htmlFor="">Word Length:</label>
-                        <input
-                            autoFocus
-                            name="wordLength"
-                            value={this.state.wordLength}
-                            onChange={this.handleWordLengthChange}
-                            id="wordLength"
-                            type="text"
-                            className="form-control"
-                        />
+                    <div className="row">
+                        <div className="col form-group">
+                            <label htmlFor="">Word Length:</label>
+                            <input
+                                autoFocus
+                                name="wordLength"
+                                value={this.state.wordLength}
+                                onChange={this.handleWordLengthChange}
+                                id="wordLength"
+                                type="text"
+                                className="form-control"
+                            />
+                        </div>
+                        <div className="col"></div>
+                        <div className="col"></div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="">Excluded Letters</label>
-                        <input
-                            id=""
-                            type="text"
-                            name="excluded"
-                            className="form-control"
-                            value={this.state.excluded}
-                            onChange={this.handleChange}
-                        />
+                    <div className="row">
+                        <div className="col form-group">
+                            {" "}
+                            <label htmlFor="">Excluded Letters</label>
+                            <input
+                                id=""
+                                type="text"
+                                name="excluded"
+                                className="form-control"
+                                value={this.state.excluded}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+
+                        <div className="col form-group">
+                            {" "}
+                            <label htmlFor="">Contained Letters</label>
+                            <input
+                                id=""
+                                type="text"
+                                name="contained"
+                                className="form-control"
+                                value={this.state.contained}
+                                onChange={this.handleChange}
+                            />
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="">Contained Letters</label>
-                        <input
-                            id=""
-                            type="text"
-                            name="contained"
-                            className="form-control"
-                            value={this.state.contained}
-                            onChange={this.handleChange}
-                        />
+                    <div className="row">
+                        <p className="text-muted pt-2">
+                            Tips: To fetch word again, click on the suggested
+                            word.
+                        </p>
                     </div>
-                    <button
-                        className="btn btn-light mt-2"
-                        onChange={this.handleSubmit}
-                    >
-                        Smash it again!
-                    </button>
+
                     <br />
                     <br />
                     <br />

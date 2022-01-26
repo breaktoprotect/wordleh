@@ -1,3 +1,7 @@
 body {
     background-color: rgb(50, 59, 59);
 }
+
+h1 {
+    cursor: pointer;
+}
