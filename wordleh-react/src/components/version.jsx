@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Version extends Component {
     state = {
-        current_vevsion: "0.1.2 (alpha)",
+        current_version: "0.1.2 (alpha)",
         last_updated: "27 Jan 2022",
     };
     render() {
