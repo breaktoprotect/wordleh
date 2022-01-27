@@ -5,3 +5,8 @@ body {
 h1 {
     cursor: pointer;
 }
+
+/* Fix the background color not full issue */
+html, body, body > div, .App {
+    height: 100%;
+  }
