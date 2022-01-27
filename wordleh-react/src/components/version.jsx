@@ -7,7 +7,7 @@ class Version extends Component {
     };
     render() {
         return (
-            <div class="container">
+            <div class="col pt-4 ms-5">
                 <p className="text-muted">{`Wordleh ${this.state.current_version} - Last updated: ${this.state.last_updated}`}</p>
             </div>
         );

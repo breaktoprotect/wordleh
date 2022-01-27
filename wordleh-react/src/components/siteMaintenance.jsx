@@ -12,7 +12,7 @@ class SiteMaintenance extends Component {
                     src={Banner}
                 />
                 <center>
-                    <h1 className="pt-4">Coming back soon!</h1>
+                    <h1 className="pt-4 text-white">Coming back soon!</h1>
                 </center>
 
                 <p className="pt-1 text-muted" style={{ textAlign: "justify" }}>
