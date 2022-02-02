@@ -10,8 +10,8 @@ function App() {
             <div className="col"></div>
             <div className="col">
                 {" "}
-                {/*<WordlehFormSimple />*/}
-                <SiteMaintenance />
+                <WordlehFormSimple />
+                {/*<SiteMaintenance />*/}
                 <Version />
             </div>
             <div className="col"></div>
