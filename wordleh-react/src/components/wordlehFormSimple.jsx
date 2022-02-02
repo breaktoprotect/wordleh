@@ -22,7 +22,7 @@ class WordlehFormSimple extends Component {
     fetchStartWord = async () => {
         //* Randomly fetch a non-repeated letter word at the start
         const response = await axios.get(
-            "http://www.wordleh.xyz:5000/fetch_start_word?length=" +
+            "https://www.wordleh.xyz:5000/fetch_start_word?length=" +
                 this.state.wordLength
         );
 
@@ -35,7 +35,7 @@ class WordlehFormSimple extends Component {
         this.fetchStartWord();
         /* //* Randomly fetch a non-repeated letter word at the start
         const response = await axios.get(
-            "http://www.wordleh.xyz:5000/fetch_start_word?length=" +
+            "https://www.wordleh.xyz:5000/fetch_start_word?length=" +
                 this.state.wordLength
         );
 
@@ -64,7 +64,7 @@ class WordlehFormSimple extends Component {
                     const { wordLength, excluded, contained, positional } =
                         this.state;
                     const response = await axios.get(
-                        "http://www.wordleh.xyz:5000/fetch_suitable_word?length=" +
+                        "https://www.wordleh.xyz:5000/fetch_suitable_word?length=" +
                             wordLength +
                             "&excluded=" +
                             excluded +
@@ -98,7 +98,7 @@ class WordlehFormSimple extends Component {
             return;
         }
         const response = await axios.get(
-            "http://www.wordleh.xyz:5000/fetch_start_word?length=" +
+            "https://www.wordleh.xyz:5000/fetch_start_word?length=" +
                 [e.currentTarget.value]
         );
         const { suggested, poolSize } = response.data;
@@ -151,7 +151,7 @@ class WordlehFormSimple extends Component {
 
         // Main submission routine
         const { response } = await axios.get(
-            "http://www.wordleh.xyz:5000/fetch_suitable_word?length=" +
+            "https://www.wordleh.xyz:5000/fetch_suitable_word?length=" +
                 wordLength +
                 "&excluded=" +
                 excluded +
