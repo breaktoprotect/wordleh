@@ -6,8 +6,7 @@ import Version from "./components/version";
 
 function App() {
     return (
-        <div className="App bg-dark row">
-            <div className="col"></div>
+        <div className="App bg-dark">
             <div className="col">
                 {" "}
                 <WordlehFormSimple />
