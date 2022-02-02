@@ -1,6 +1,6 @@
 # For deployment only
 import os
-from wordleh_app import app
+from wordleh_app import *
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
