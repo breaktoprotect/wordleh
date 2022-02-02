@@ -29,19 +29,33 @@ class WordlehFormSimple extends Component {
         const { suggested, poolSize } = response.data;
 
         this.setState({ suggested, poolSize });
+
+        return suggested, poolSize;
+    };
+
+    suggestWord = async () => {
+        //* Suggest a word based on restriction
+        const { wordLength, excluded, contained, positional } = this.state;
+
+        const response = await axios.get(
+            "https://wordleh.xyz:5000/fetch_suitable_word?length=" +
+                wordLength +
+                "&excluded=" +
+                excluded +
+                "&contained=" +
+                contained +
+                "&positional_string=" +
+                positional
+        );
+        const { suggested, poolSize } = response.data;
+        //debug
+        console.log("suggested, poolsize:", suggested, poolSize);
+
+        this.setState({ suggested, poolSize });
     };
 
     async componentDidMount() {
         this.fetchStartWord();
-        /* //* Randomly fetch a non-repeated letter word at the start
-        const response = await axios.get(
-            "https://wordleh.xyz:5000/fetch_start_word?length=" +
-                this.state.wordLength
-        );
-
-        const { suggested, poolSize } = response.data;
-
-        this.setState({ suggested, poolSize }); */
 
         //* Sets the positional text based on word length
         this.setState({ positional: "-".repeat(this.state.wordLength) });
@@ -97,13 +111,7 @@ class WordlehFormSimple extends Component {
         if ([e.currentTarget.value] < 1 || [e.currentTarget.value] > 13) {
             return;
         }
-        const response = await axios.get(
-            "https://wordleh.xyz:5000/fetch_start_word?length=" +
-                [e.currentTarget.value]
-        );
-        const { suggested, poolSize } = response.data;
-
-        this.setState({ suggested, poolSize });
+        const { suggested, poolSize } = this.fetchStartWord();
 
         this.setState({
             suggested: suggested,
@@ -147,24 +155,15 @@ class WordlehFormSimple extends Component {
         ) {
             this.fetchStartWord();
             return;
+        } else {
+            this.suggestWord();
         }
 
-        // Main submission routine
-        const { response } = await axios.get(
-            "https://wordleh.xyz:5000/fetch_suitable_word?length=" +
-                wordLength +
-                "&excluded=" +
-                excluded +
-                "&contained=" +
-                contained +
-                "&positional_string=" +
-                positional
-        );
+        /*
         const { suggested, poolSize } = response.data;
-        //debug
-        console.log("suggested, poolsize:", suggested, poolSize);
 
         this.setState({ suggested, poolSize });
+        */
     };
 
     render() {
