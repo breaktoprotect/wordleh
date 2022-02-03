@@ -2,8 +2,9 @@ import React, { Component } from "react";
 
 class Version extends Component {
     state = {
-        current_version: "0.1.2 (alpha)",
-        last_updated: "27 Jan 2022",
+        current_version: "0.1.3 (alpha)",
+        last_updated: "3 Feb 2022",
+        recent_changes_msg: "Wordleh now supports capital letters!",
     };
     render() {
         return (

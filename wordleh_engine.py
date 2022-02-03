@@ -19,6 +19,11 @@ def get_start_word(length):
 
 #* A do-all routine for stateless single request (AFTER FIRST TURN)
 def get_suitable_word(length, excluded_letters, contained_letters, positional_string):
+    # 0. Convert all letters to small caps
+    excluded_letters = excluded_letters.lower()
+    contained_letters = contained_letters.lower()
+    positional_string = positional_string.lower()
+
     # 1. Fetch the correct length words
     wordlist_1 = get_n_letter_words(WORDS, 5) # WORDS is the lower alphabet set of all English words
 
