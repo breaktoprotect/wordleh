@@ -1,6 +1,6 @@
-# wordleh
+# Wordleh - Man vs. The Machine
 ## Description
-This app attempts to provide good suggestions for the game Wordle. A mini backend project that is meant for React App.
+This app attempts to provide good suggestions for solving the game Wordle. A mini backend project that is meant for React App.
 
 ## Features
 - Suggest initial word with no repeated letter for efficiency
